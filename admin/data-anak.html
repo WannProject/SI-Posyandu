@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Anak - Sistem Informasi Posyandu</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <!-- Include header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-posyandu">
+    <div class="container-fluid">
+      <button class="btn btn-link btn-sm text-white order-1 order-lg-0 me-2" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+      </button>
+      <a class="navbar-brand mx-auto mx-lg-0" href="/index.html">
+        <i class="bi bi-heart-pulse-fill me-2"></i>SI-Posyandu
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-1"></i>Admin
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Pengaturan</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/auth/login.html"><i class="bi bi-box-arrow-right me-2"></i>Keluar</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Include sidebar -->
+      <div class="sidebar col-lg-2 px-0 d-flex flex-column flex-shrink-0">
+        <div class="p-3 border-bottom">
+          <div class="text-center">
+            <img src="https://ui-avatars.com/api/?name=Admin&background=198754&color=fff" alt="Admin" class="rounded-circle mb-2" width="80">
+            <h6 class="mb-0">Administrator</h6>
+            <small class="text-muted">Admin</small>
+          </div>
+        </div>
+        <ul class="nav nav-pills flex-column mb-auto p-2">
+          <li class="nav-item">
+            <a href="/admin/dashboard.html" class="nav-link">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/data-anak.html" class="nav-link active">
+              <i class="bi bi-person-badge"></i> Data Anak
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/data-ibu.html" class="nav-link">
+              <i class="bi bi-person-heart"></i> Data Ibu Hamil
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/pemeriksaan.html" class="nav-link">
+              <i class="bi bi-clipboard2-pulse"></i> Data Pemeriksaan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/laporan.html" class="nav-link">
+              <i class="bi bi-file-earmark-text"></i> Laporan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/user-management.html" class="nav-link">
+              <i class="bi bi-people"></i> Manajemen User
+            </a>
+          </li>
+          <li class="nav-item mt-2">
+            <a href="/auth/login.html" class="nav-link text-danger">
+              <i class="bi bi-box-arrow-left"></i> Keluar
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <main class="col-lg-10 ms-auto content-wrapper">
+        <div class="container-fluid px-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mt-2">Data Anak</h1>
+            <button class="btn btn-posyandu" data-bs-toggle="modal" data-bs-target="#addChildModal">
+              <i class="bi bi-plus-circle me-2"></i>Tambah Anak
+            </button>
+          </div>
+          
+          <!-- Filter and Search -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="searchInput" class="form-label">Cari</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="tableSearch" placeholder="Nama, NIK, atau nama ibu..." oninput="filterTable()">
+                    <button class="btn btn-outline-secondary" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="filterGender" class="form-label">Jenis Kelamin</label>
+                  <select class="form-select" id="filterGender">
+                    <option value="" selected>Semua</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="filterAge" class="form-label">Usia</label>
+                  <select class="form-select" id="filterAge">
+                    <option value="" selected>Semua</option>
+                    <option value="0-12">0-12 bulan</option>
+                    <option value="13-24">13-24 bulan</option>
+                    <option value="25-36">25-36 bulan</option>
+                    <option value="37-60">37-60 bulan</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">&nbsp;</label>
+                  <button class="btn btn-secondary w-100">
+                    <i class="bi bi-funnel me-2"></i>Filter
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Data Table -->
+          <div class="card mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Daftar Anak</h5>
+                <div>
+                  <button class="btn btn-sm btn-outline-success me-2">
+                    <i class="bi bi-file-earmark-excel me-1"></i>Excel
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Anak</th>
+                      <th>NIK</th>
+                      <th>Tanggal Lahir</th>
+                      <th>Jenis Kelamin</th>
+                      <th>Nama Ibu</th>
+                      <th>Alamat</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Ahmad Rizki</td>
+                      <td>3502161004200001</td>
+                      <td>10/04/2020</td>
+                      <td>Laki-laki</td>
+                      <td>Siti Aminah</td>
+                      <td>Jl. Melati No. 12, RT 03/RW 02</td>
+                      <td>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewChildModal">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editChildModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(event)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Siti Nurhaliza</td>
+                      <td>3502161506202102</td>
+                      <td>15/06/2021</td>
+                      <td>Perempuan</td>
+                      <td>Fatimah</td>
+                      <td>Jl. Anggrek No. 5, RT 02/RW 01</td>
+                      <td>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewChildModal">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editChildModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(event)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Budi Santoso</td>
+                      <td>3502162207202203</td>
+                      <td>22/07/2022</td>
+                      <td>Laki-laki</td>
+                      <td>Sri Wahyuni</td>
+                      <td>Jl. Mawar No. 8, RT 05/RW 02</td>
+                      <td>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewChildModal">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editChildModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(event)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Dina Maulida</td>
+                      <td>3502160309202304</td>
+                      <td>03/09/2023</td>
+                      <td>Perempuan</td>
+                      <td>Nur Aini</td>
+                      <td>Jl. Kenanga No. 15, RT 01/RW 03</td>
+                      <td>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewChildModal">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editChildModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(event)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Eko Prasetyo</td>
+                      <td>3502161412202005</td>
+                      <td>14/12/2020</td>
+                      <td>Laki-laki</td>
+                      <td>Dewi Safitri</td>
+                      <td>Jl. Dahlia No. 7, RT 04/RW 01</td>
+                      <td>
+                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewChildModal">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editChildModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(event)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer">
+              <nav>
+                <ul class="pagination justify-content-center mb-0">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Sebelumnya</a>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Selanjutnya</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add Child Modal -->
+  <div class="modal fade" id="addChildModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-posyandu text-white">
+          <h5 class="modal-title">Tambah Data Anak</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="childName" class="form-label">Nama Anak</label>
+                <input type="text" class="form-control" id="childName" required>
+                <div class="invalid-feedback">Nama anak wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="childNIK" class="form-label">NIK</label>
+                <input type="text" class="form-control" id="childNIK" required>
+                <div class="invalid-feedback">NIK wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="birthDate" class="form-label">Tanggal Lahir</label>
+                <input type="date" class="form-control" id="birthDate" required>
+                <div class="invalid-feedback">Tanggal lahir wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="gender" class="form-label">Jenis Kelamin</label>
+                <select class="form-select" id="gender" required>
+                  <option value="" selected disabled>Pilih...</option>
+                  <option value="L">Laki-laki</option>
+                  <option value="P">Perempuan</option>
+                </select>
+                <div class="invalid-feedback">Jenis kelamin wajib dipilih.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="birthPlace" class="form-label">Tempat Lahir</label>
+                <input type="text" class="form-control" id="birthPlace" required>
+                <div class="invalid-feedback">Tempat lahir wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="birthWeight" class="form-label">Berat Lahir (gram)</label>
+                <input type="number" class="form-control" id="birthWeight" required>
+                <div class="invalid-feedback">Berat lahir wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="birthLength" class="form-label">Panjang Lahir (cm)</label>
+                <input type="number" class="form-control" id="birthLength" required>
+                <div class="invalid-feedback">Panjang lahir wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="motherName" class="form-label">Nama Ibu</label>
+                <input type="text" class="form-control" id="motherName" required>
+                <div class="invalid-feedback">Nama ibu wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="fatherName" class="form-label">Nama Ayah</label>
+                <input type="text" class="form-control" id="fatherName" required>
+                <div class="invalid-feedback">Nama ayah wajib diisi.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="phoneNumber" class="form-label">Nomor Telepon</label>
+                <input type="tel" class="form-control" id="phoneNumber">
+              </div>
+              <div class="col-12">
+                <label for="address" class="form-label">Alamat</label>
+                <textarea class="form-control" id="address" rows="2" required></textarea>
+                <div class="invalid-feedback">Alamat wajib diisi.</div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-posyandu">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Child Modal -->
+  <div class="modal fade" id="viewChildModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Detail Data Anak</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Nama Anak:</p>
+              <p>Ahmad Rizki</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">NIK:</p>
+              <p>3502161004200001</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Tanggal Lahir:</p>
+              <p>10/04/2020</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Jenis Kelamin:</p>
+              <p>Laki-laki</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Tempat Lahir:</p>
+              <p>Malang</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Berat Lahir:</p>
+              <p>3200 gram</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Panjang Lahir:</p>
+              <p>50 cm</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Nama Ibu:</p>
+              <p>Siti Aminah</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Nama Ayah:</p>
+              <p>Ahmad Supriadi</p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-bold">Nomor Telepon:</p>
+              <p>08123456789</p>
+            </div>
+            <div class="col-12">
+              <p class="mb-1 fw-bold">Alamat:</p>
+              <p>Jl. Melati No. 12, RT 03/RW 02</p>
+            </div>
+            
+            <div class="col-12 mt-3">
+              <h6 class="border-bottom pb-2">Riwayat Pemeriksaan</h6>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Tanggal</th>
+                      <th>Usia (bulan)</th>
+                      <th>Berat (kg)</th>
+                      <th>Tinggi (cm)</th>
+                      <th>Status Gizi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>10/05/2020</td>
+                      <td>1</td>
+                      <td>4.2</td>
+                      <td>54</td>
+                      <td>Baik</td>
+                    </tr>
+                    <tr>
+                      <td>10/06/2020</td>
+                      <td>2</td>
+                      <td>5.1</td>
+                      <td>57</td>
+                      <td>Baik</td>
+                    </tr>
+                    <tr>
+                      <td>10/07/2020</td>
+                      <td>3</td>
+                      <td>5.8</td>
+                      <td>60</td>
+                      <td>Baik</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#editChildModal">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Child Modal (similar to Add Modal but with pre-filled data) -->
+  <div class="modal fade" id="editChildModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title">Edit Data Anak</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form fields similar to Add Modal but pre-filled -->
+          <form class="needs-validation" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="editChildName" class="form-label">Nama Anak</label>
+                <input type="text" class="form-control" id="editChildName" value="Ahmad Rizki" required>
+              </div>
+              <div class="col-md-6">
+                <label for="editChildNIK" class="form-label">NIK</label>
+                <input type="text" class="form-control" id="editChildNIK" value="3502161004200001" required>
+              </div>
+              <!-- More pre-filled fields would follow -->
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-warning">Perbarui</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="/assets/js/scripts.js"></script>
+</body>
+</html>

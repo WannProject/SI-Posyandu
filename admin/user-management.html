@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen User - Sistem Informasi Posyandu</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Include header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-posyandu">
+      <div class="container-fluid">
+        <button
+          class="btn btn-link btn-sm text-white order-1 order-lg-0 me-2"
+          id="sidebarToggle"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+        <a class="navbar-brand mx-auto mx-lg-0" href="/index.html">
+          <i class="bi bi-heart-pulse-fill me-2"></i>SI-Posyandu
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle text-white"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-person-circle me-1"></i>Admin
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-person me-2"></i>Profil</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-gear me-2"></i>Pengaturan</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/auth/login.html"
+                    ><i class="bi bi-box-arrow-right me-2"></i>Keluar</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Include sidebar -->
+        <div class="sidebar col-lg-2 px-0 d-flex flex-column flex-shrink-0">
+          <div class="p-3 border-bottom">
+            <div class="text-center">
+              <img
+                src="https://ui-avatars.com/api/?name=Admin&background=198754&color=fff"
+                alt="Admin"
+                class="rounded-circle mb-2"
+                width="80"
+              />
+              <h6 class="mb-0">Administrator</h6>
+              <small class="text-muted">Admin</small>
+            </div>
+          </div>
+          <ul class="nav nav-pills flex-column mb-auto p-2">
+            <li class="nav-item">
+              <a href="/admin/dashboard.html" class="nav-link">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/data-anak.html" class="nav-link">
+                <i class="bi bi-person-badge"></i> Data Anak
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/data-ibu.html" class="nav-link">
+                <i class="bi bi-person-heart"></i> Data Ibu Hamil
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/pemeriksaan.html" class="nav-link">
+                <i class="bi bi-clipboard2-pulse"></i> Data Pemeriksaan
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/laporan.html" class="nav-link">
+                <i class="bi bi-file-earmark-text"></i> Laporan
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/user-management.html" class="nav-link active">
+                <i class="bi bi-people"></i> Manajemen User
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/auth/login.html" class="nav-link text-danger">
+                <i class="bi bi-box-arrow-left"></i> Keluar
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <main class="col-lg-10 ms-auto content-wrapper">
+          <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h1 class="mt-2">Manajemen Pengguna Sistem</h1>
+              <button
+                class="btn btn-posyandu"
+                data-bs-toggle="modal"
+                data-bs-target="#addUserModal"
+              >
+                <i class="bi bi-plus-circle me-2"></i>Tambah User
+              </button>
+            </div>
+
+            <!-- Filter and Search -->
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-md-5">
+                    <label for="searchInput" class="form-label">Cari</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tableSearch"
+                        placeholder="Nama, username, atau email..."
+                        oninput="filterTable()"
+                      />
+                      <button class="btn btn-outline-secondary" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="filterRole" class="form-label">Role</label>
+                    <select class="form-select" id="filterRole">
+                      <option value="" selected>Semua Role</option>
+                      <option value="admin">Admin</option>
+                      <option value="kader">Kader</option>
+                      <option value="bidan">Bidan</option>
+                      <option value="kepala-desa">Kepala Desa</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label">&nbsp;</label>
+                    <button class="btn btn-secondary w-100">
+                      <i class="bi bi-funnel me-2"></i>Filter
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Daftar Pengguna Sistem</h5>
+                  <div>
+                    <button class="btn btn-sm btn-outline-success me-2">
+                      <i class="bi bi-file-earmark-excel me-1"></i>Excel
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-file-earmark-pdf me-1"></i>PDF
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Lengkap</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Posyandu</th>
+                        <th>Status</th>
+                        <th>Terakhir Login</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Admin Utama</td>
+                        <td>admin</td>
+                        <td>admin@posyandu.id</td>
+                        <td><span class="badge bg-danger">Admin</span></td>
+                        <td>Semua</td>
+                        <td><span class="badge bg-success">Aktif</span></td>
+                        <td>05/06/2025 08:30</td>
+                        <td>
+                          <button
+                            class="btn btn-sm btn-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#viewUserModal"
+                          >
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editUserModal"
+                          >
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-danger"
+                            onclick="confirmDelete(event)"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Bidan Siti</td>
+                        <td>bidan_siti</td>
+                        <td>bidan.siti@posyandu.id</td>
+                        <td><span class="badge bg-primary">Bidan</span></td>
+                        <td>Melati</td>
+                        <td><span class="badge bg-success">Aktif</span></td>
+                        <td>04/06/2025 14:15</td>
+                        <td>
+                          <button
+                            class="btn btn-sm btn-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#viewUserModal"
+                          >
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editUserModal"
+                          >
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-danger"
+                            onclick="confirmDelete(event)"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Kader Rina</td>
+                        <td>kader_rina</td>
+                        <td>kader.rina@posyandu.id</td>
+                        <td><span class="badge bg-success">Kader</span></td>
+                        <td>Mawar</td>
+                        <td><span class="badge bg-success">Aktif</span></td>
+                        <td>03/06/2025 10:45</td>
+                        <td>
+                          <button
+                            class="btn btn-sm btn-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#viewUserModal"
+                          >
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editUserModal"
+                          >
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-danger"
+                            onclick="confirmDelete(event)"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Kepala Desa Budi</td>
+                        <td>kades_budi</td>
+                        <td>budi@desa.id</td>
+                        <td>
+                          <span class="badge bg-warning text-dark"
+                            >Kepala Desa</span
+                          >
+                        </td>
+                        <td>Semua</td>
+                        <td>
+                          <span class="badge bg-secondary">Nonaktif</span>
+                        </td>
+                        <td>15/05/2025 09:20</td>
+                        <td>
+                          <button
+                            class="btn btn-sm btn-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#viewUserModal"
+                          >
+                            <i class="bi bi-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-warning"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editUserModal"
+                          >
+                            <i class="bi bi-pencil"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-danger"
+                            onclick="confirmDelete(event)"
+                          >
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer">
+                <nav>
+                  <ul class="pagination justify-content-center mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Sebelumnya</a>
+                    </li>
+                    <li class="page-item active">
+                      <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Selanjutnya</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-posyandu text-white">
+            <h5 class="modal-title">Tambah Pengguna Baru</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label"
+                    >Nama Lengkap <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fullName"
+                    required
+                  />
+                  <div class="invalid-feedback">Nama lengkap wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="username" class="form-label"
+                    >Username <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    required
+                  />
+                  <div class="invalid-feedback">Username wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label"
+                    >Email <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    required
+                  />
+                  <div class="invalid-feedback">Email wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="phoneNumber" class="form-label"
+                    >Nomor Telepon</label
+                  >
+                  <input type="tel" class="form-control" id="phoneNumber" />
+                </div>
+                <div class="col-md-6">
+                  <label for="password" class="form-label"
+                    >Password <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    required
+                  />
+                  <div class="invalid-feedback">Password wajib diisi.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="confirmPassword" class="form-label"
+                    >Konfirmasi Password
+                    <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Konfirmasi password wajib diisi.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="role" class="form-label"
+                    >Role <span class="text-danger">*</span></label
+                  >
+                  <select class="form-select" id="role" required>
+                    <option value="" selected disabled>Pilih Role...</option>
+                    <option value="admin">Admin</option>
+                    <option value="kader">Kader</option>
+                    <option value="bidan">Bidan</option>
+                    <option value="kepala-desa">Kepala Desa</option>
+                  </select>
+                  <div class="invalid-feedback">Role wajib dipilih.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="posyandu" class="form-label">Posyandu</label>
+                  <select class="form-select" id="posyandu">
+                    <option value="" selected>Semua Posyandu</option>
+                    <option value="melati">Melati</option>
+                    <option value="mawar">Mawar</option>
+                    <option value="anggrek">Anggrek</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="isActive"
+                      checked
+                    />
+                    <label class="form-check-label" for="isActive">
+                      Akun Aktif
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Batal
+            </button>
+            <button type="button" class="btn btn-posyandu">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View User Modal -->
+    <div class="modal fade" id="viewUserModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-white">
+            <h5 class="modal-title">Detail Pengguna</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Nama Lengkap:</p>
+                <p>Bidan Siti</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Username:</p>
+                <p>bidan_siti</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Email:</p>
+                <p>bidan.siti@posyandu.id</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Nomor Telepon:</p>
+                <p>081234567890</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Role:</p>
+                <p><span class="badge bg-primary">Bidan</span></p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Posyandu:</p>
+                <p>Melati</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Status:</p>
+                <p><span class="badge bg-success">Aktif</span></p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Terdaftar Pada:</p>
+                <p>15/01/2025 10:30</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">Terakhir Login:</p>
+                <p>04/06/2025 14:15</p>
+              </div>
+              <div class="col-md-6">
+                <p class="mb-1 fw-bold">IP Terakhir Login:</p>
+                <p>192.168.1.100</p>
+              </div>
+              <div class="col-12 mt-3">
+                <h6 class="border-bottom pb-2">Aktivitas Terakhir</h6>
+                <ul class="list-group list-group-flush">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Input data pemeriksaan anak</span>
+                    <small class="text-muted">04/06/2025 14:00</small>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Update data ibu hamil</span>
+                    <small class="text-muted">03/06/2025 09:30</small>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>Generate laporan bulanan</span>
+                    <small class="text-muted">01/06/2025 11:15</small>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Tutup
+            </button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              data-bs-dismiss="modal"
+              data-bs-toggle="modal"
+              data-bs-target="#editUserModal"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-warning text-white">
+            <h5 class="modal-title">Edit Data Pengguna</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="editFullName" class="form-label"
+                    >Nama Lengkap</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editFullName"
+                    value="Bidan Siti"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="editUsername" class="form-label">Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editUsername"
+                    value="bidan_siti"
+                    required
+                    disabled
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="editEmail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="editEmail"
+                    value="bidan.siti@posyandu.id"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="editPhoneNumber" class="form-label"
+                    >Nomor Telepon</label
+                  >
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="editPhoneNumber"
+                    value="081234567890"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="editRole" class="form-label">Role</label>
+                  <select class="form-select" id="editRole" required>
+                    <option value="admin">Admin</option>
+                    <option value="kader">Kader</option>
+                    <option value="bidan" selected>Bidan</option>
+                    <option value="kepala-desa">Kepala Desa</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="editPosyandu" class="form-label">Posyandu</label>
+                  <select class="form-select" id="editPosyandu">
+                    <option value="">Semua Posyandu</option>
+                    <option value="melati" selected>Melati</option>
+                    <option value="mawar">Mawar</option>
+                    <option value="anggrek">Anggrek</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="editIsActive"
+                      checked
+                    />
+                    <label class="form-check-label" for="editIsActive">
+                      Akun Aktif
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12 mt-3">
+                  <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Kosongkan password jika tidak ingin mengubah
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="editPassword" class="form-label"
+                    >Password Baru</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="editPassword"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="editConfirmPassword" class="form-label"
+                    >Konfirmasi Password Baru</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="editConfirmPassword"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Batal
+            </button>
+            <button type="button" class="btn btn-warning">Perbarui</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/assets/js/scripts.js"></script>
+    <script>
+      function confirmDelete(event) {
+        event.preventDefault();
+        if (confirm("Apakah Anda yakin ingin menghapus pengguna ini?")) {
+          // Logic to delete user
+          alert("Pengguna berhasil dihapus!");
+        }
+      }
+
+      function filterTable() {
+        const input = document.getElementById("tableSearch");
+        const filter = input.value.toUpperCase();
+        const table = document.querySelector(".table");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+          let found = false;
+          const td = tr[i].getElementsByTagName("td");
+
+          for (let j = 0; j < td.length - 1; j++) {
+            if (td[j]) {
+              const txtValue = td[j].textContent || td[j].innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+                break;
+              }
+            }
+          }
+
+          tr[i].style.display = found ? "" : "none";
+        }
+      }
+    </script>
+  </body>
+</html>

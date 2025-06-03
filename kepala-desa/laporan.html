@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan - Sistem Informasi Posyandu</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Include header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-posyandu">
+      <div class="container-fluid">
+        <button
+          class="btn btn-link btn-sm text-white order-1 order-lg-0 me-2"
+          id="sidebarToggle"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+        <a class="navbar-brand mx-auto mx-lg-0" href="/index.html">
+          <i class="bi bi-heart-pulse-fill me-2"></i>SI-Posyandu
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle text-white"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-person-circle me-1"></i>Kepala Desa
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-person me-2"></i>Profil</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="bi bi-gear me-2"></i>Pengaturan</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/auth/login.html"
+                    ><i class="bi bi-box-arrow-right me-2"></i>Keluar</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Include sidebar -->
+        <div class="sidebar col-lg-2 px-0 d-flex flex-column flex-shrink-0">
+          <div class="p-3 border-bottom">
+            <div class="text-center">
+              <img
+                src="https://ui-avatars.com/api/?name=Kepala+Desa&background=198754&color=fff"
+                alt="Kepala Desa"
+                class="rounded-circle mb-2"
+                width="80"
+              />
+              <h6 class="mb-0">Nama Kepala Desa</h6>
+              <small class="text-muted">Kepala Desa</small>
+            </div>
+          </div>
+          <ul class="nav nav-pills flex-column mb-auto p-2">
+            <li class="nav-item">
+              <a href="/kepala-desa/dashboard.html" class="nav-link">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/kepala-desa/laporan.html" class="nav-link active">
+                <i class="bi bi-file-earmark-text"></i> Laporan
+              </a>
+            </li>
+            <li class="nav-item mt-2">
+              <a href="/auth/login.html" class="nav-link text-danger">
+                <i class="bi bi-box-arrow-left"></i> Keluar
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <main class="col-lg-10 ms-auto content-wrapper">
+          <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h1 class="mt-2">Laporan Kesehatan Anak dan Ibu</h1>
+              <div>
+                <button class="btn btn-outline-secondary btn-print">
+                  <i class="bi bi-printer me-1"></i>Cetak
+                </button>
+                <button class="btn btn-outline-success ms-2">
+                  <i class="bi bi-download me-1"></i>Unduh
+                </button>
+              </div>
+            </div>
+
+            <!-- Report Filter -->
+            <div class="card mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">Filter Laporan</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row g-3">
+                    <div class="col-md-3">
+                      <label for="reportType" class="form-label"
+                        >Jenis Laporan</label
+                      >
+                      <select class="form-select" id="reportType">
+                        <option value="child" selected>
+                          Laporan Kesehatan Anak
+                        </option>
+                        <option value="mother">Laporan Ibu Hamil</option>
+                        <option value="nutrition">Laporan Status Gizi</option>
+                        <option value="immunization">Laporan Imunisasi</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="filterVillage" class="form-label"
+                        >Desa/Kelurahan</label
+                      >
+                      <select class="form-select" id="filterVillage">
+                        <option value="all" selected>Semua</option>
+                        <option value="sumberRejo">Desa Sumber Rejo</option>
+                        <option value="karangAnyar">Desa Karang Anyar</option>
+                        <option value="tegalSari">Desa Tegal Sari</option>
+                        <option value="majuJaya">Desa Maju Jaya</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="startDate" class="form-label"
+                        >Dari Tanggal</label
+                      >
+                      <input type="date" class="form-control" id="startDate" />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="endDate" class="form-label"
+                        >Sampai Tanggal</label
+                      >
+                      <input type="date" class="form-control" id="endDate" />
+                    </div>
+                    <div class="col-md-2">
+                      <label class="form-label">&nbsp;</label>
+                      <button type="button" class="btn btn-posyandu w-100">
+                        <i class="bi bi-search me-2"></i>Tampilkan
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Report Header -->
+            <div class="card mb-4 no-print">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="mb-1">Laporan Kesehatan Anak</h5>
+                    <p class="text-muted mb-0">Periode: Mei 2023</p>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary">
+                      <i class="bi bi-file-earmark-pdf me-1"></i>PDF
+                    </button>
+                    <button type="button" class="btn btn-outline-success">
+                      <i class="bi bi-file-earmark-excel me-1"></i>Excel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Report Content -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="text-center py-3" id="printHeader">
+                  <h4>LAPORAN KESEHATAN ANAK</h4>
+                  <h5>DESA SUMBER REJO</h5>
+                  <p>Periode: Mei 2023</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- Status Summary -->
+                <div class="row g-3 mb-4">
+                  <div class="col-md-3">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h3 class="text-posyandu">45</h3>
+                        <p class="mb-0">Total Anak</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h3 class="text-success">30</h3>
+                        <p class="mb-0">Gizi Baik</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h3 class="text-warning">10</h3>
+                        <p class="mb-0">Gizi Kurang</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="card bg-light">
+                      <div class="card-body text-center">
+                        <h3 class="text-danger">5</h3>
+                        <p class="mb-0">Gizi Buruk</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Detailed Report -->
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Anak</th>
+                        <th>NIK</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Usia (bulan)</th>
+                        <th>Berat (kg)</th>
+                        <th>Tinggi (cm)</th>
+                        <th>Status Gizi</th>
+                        <th>Nama Ibu</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Ahmad Rizki</td>
+                        <td>3502161004200001</td>
+                        <td>Laki-laki</td>
+                        <td>10/04/2020</td>
+                        <td>37</td>
+                        <td>13.7</td>
+                        <td>94.0</td>
+                        <td>Baik</td>
+                        <td>Siti Aminah</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Siti Nurhaliza</td>
+                        <td>3502161506202102</td>
+                        <td>Perempuan</td>
+                        <td>15/06/2021</td>
+                        <td>23</td>
+                        <td>10.2</td>
+                        <td>82.5</td>
+                        <td>Baik</td>
+                        <td>Fatimah</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>Budi Santoso</td>
+                        <td>3502162207202203</td>
+                        <td>Laki-laki</td>
+                        <td>22/07/2022</td>
+                        <td>10</td>
+                        <td>7.5</td>
+                        <td>68.0</td>
+                        <td>Kurang</td>
+                        <td>Sri Wahyuni</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>Dina Maulida</td>
+                        <td>3502160309202304</td>
+                        <td>Perempuan</td>
+                        <td>03/09/2023</td>
+                        <td>8</td>
+                        <td>6.8</td>
+                        <td>65.2</td>
+                        <td>Baik</td>
+                        <td>Nur Aini</td>
+                      </tr>
+                      <tr class="table-danger">
+                        <td>5</td>
+                        <td>Aditya Putra</td>
+                        <td>3502161706202105</td>
+                        <td>Laki-laki</td>
+                        <td>17/06/2021</td>
+                        <td>23</td>
+                        <td>8.5</td>
+                        <td>76.0</td>
+                        <td>Buruk</td>
+                        <td>Rina Wati</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Signature Section (visible when printing) -->
+                <div class="row mt-5" id="signatureSection">
+                  <div class="col-md-6 offset-md-6 text-center">
+                    <p>Sumber Rejo, 31 Mei 2023</p>
+                    <p>Kepala Desa</p>
+                    <br /><br /><br />
+                    <p><u>Nama Kepala Desa</u></p>
+                    <p>NIP. 196701011990031001</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Rekomendasi Tindakan</h5>
+              </div>
+              <div class="card-body">
+                <div class="alert alert-warning">
+                  <h6 class="alert-heading">Perhatian!</h6>
+                  <p>
+                    Berdasarkan laporan di atas, terdapat
+                    <strong>5 anak</strong> dengan status gizi kurang dan
+                    <strong>2 anak</strong> dengan status gizi buruk yang
+                    memerlukan perhatian khusus.
+                  </p>
+                  <hr />
+                  <p class="mb-0">Rekomendasi tindakan yang perlu dilakukan:</p>
+                  <ul>
+                    <li>
+                      Memberikan Makanan Tambahan (MT) kepada anak dengan status
+                      gizi kurang dan buruk
+                    </li>
+                    <li>
+                      Melakukan kunjungan rumah untuk pemantauan lebih lanjut
+                    </li>
+                    <li>
+                      Memberikan edukasi kepada orang tua tentang pola makan
+                      gizi seimbang
+                    </li>
+                    <li>
+                      Koordinasi dengan Puskesmas untuk penanganan lebih lanjut
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/assets/js/scripts.js"></script>
+  </body>
+</html>
