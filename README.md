@@ -11,15 +11,18 @@ Sistem Informasi Posyandu adalah aplikasi berbasis web yang dirancang untuk memb
 
 ## 👥 Aktor Sistem
 
-1. **Admin**
+1. **Admin/petugas puskesmas**
+
    - Mengelola data user, anak, ibu, pemeriksaan, dan laporan.
    - Mencetak laporan bulanan/tahunan.
 
 2. **Kader Posyandu**
-   - Menginput data anak dan ibu hamil.
+
+   - Menginput data anak dan input hasil pemeriksaan anak.
    - Melihat laporan data yang telah diinput.
 
 3. **Bidan**
+
    - Menginput data hasil pemeriksaan kesehatan anak (berat badan, tinggi badan, status gizi, dll).
    - Melihat riwayat pemeriksaan.
 
@@ -34,4 +37,3 @@ Sistem Informasi Posyandu adalah aplikasi berbasis web yang dirancang untuk memb
 - Folder terstruktur untuk kemudahan pengembangan
 
 ## 🗂️ Struktur Folder
-

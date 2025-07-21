@@ -22,17 +22,17 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/styles.css" />
   </head>
-  <body>
-    <!-- Include header -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-posyandu">
+  <body id="nav-section">
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark fixed-top"
+      style="
+        background: var(--gradient-primary);
+        box-shadow: var(--shadow-medium);
+      "
+    >
       <div class="container-fluid">
-        <button
-          class="btn btn-link btn-sm text-white order-1 order-lg-0 me-2"
-          id="sidebarToggle"
-        >
-          <i class="bi bi-list"></i>
-        </button>
-        <a class="navbar-brand mx-auto mx-lg-0" href="/index.html">
+        <a class="navbar-brand mx-auto mx-lg-0 text-white" href="/index.html">
           <i class="bi bi-heart-pulse-fill me-2"></i>SI-Posyandu
         </a>
         <button
@@ -78,7 +78,7 @@
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: 70px">
       <div class="row">
         <!-- Include sidebar -->
         <div class="sidebar col-lg-2 px-0 d-flex flex-column flex-shrink-0">
@@ -103,11 +103,6 @@
             <li class="nav-item">
               <a href="/admin/data-anak.html" class="nav-link">
                 <i class="bi bi-person-badge"></i> Data Anak
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/admin/data-ibu.html" class="nav-link">
-                <i class="bi bi-person-heart"></i> Data Ibu Hamil
               </a>
             </li>
             <li class="nav-item">
@@ -145,87 +140,6 @@
                 <button class="btn btn-outline-success ms-2">
                   <i class="bi bi-download me-1"></i>Unduh
                 </button>
-              </div>
-            </div>
-
-            <!-- Report Types -->
-            <div class="row g-3 mb-4">
-              <div class="col-md-3">
-                <div class="card h-100">
-                  <div class="card-body text-center">
-                    <i class="bi bi-person-badge fs-1 text-posyandu mb-3"></i>
-                    <h5>Laporan Data Anak</h5>
-                    <p class="text-muted small">
-                      Laporan lengkap data anak dan pertumbuhannya
-                    </p>
-                    <button
-                      class="btn btn-sm btn-posyandu"
-                      data-bs-toggle="modal"
-                      data-bs-target="#generateReportModal"
-                    >
-                      <i class="bi bi-file-earmark-text me-1"></i>Buat Laporan
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="card h-100">
-                  <div class="card-body text-center">
-                    <i class="bi bi-person-heart fs-1 text-posyandu mb-3"></i>
-                    <h5>Laporan Ibu Hamil</h5>
-                    <p class="text-muted small">
-                      Laporan data ibu hamil dan pemeriksaan
-                    </p>
-                    <button
-                      class="btn btn-sm btn-posyandu"
-                      data-bs-toggle="modal"
-                      data-bs-target="#generateReportModal"
-                    >
-                      <i class="bi bi-file-earmark-text me-1"></i>Buat Laporan
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="card h-100">
-                  <div class="card-body text-center">
-                    <i
-                      class="bi bi-clipboard2-pulse fs-1 text-posyandu mb-3"
-                    ></i>
-                    <h5>Laporan Pemeriksaan</h5>
-                    <p class="text-muted small">
-                      Laporan hasil pemeriksaan kesehatan
-                    </p>
-                    <button
-                      class="btn btn-sm btn-posyandu"
-                      data-bs-toggle="modal"
-                      data-bs-target="#generateReportModal"
-                    >
-                      <i class="bi bi-file-earmark-text me-1"></i>Buat Laporan
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="card h-100">
-                  <div class="card-body text-center">
-                    <i class="bi bi-graph-up fs-1 text-posyandu mb-3"></i>
-                    <h5>Laporan Statistik</h5>
-                    <p class="text-muted small">
-                      Laporan statistik dan grafik pertumbuhan
-                    </p>
-                    <button
-                      class="btn btn-sm btn-posyandu"
-                      data-bs-toggle="modal"
-                      data-bs-target="#generateReportModal"
-                    >
-                      <i class="bi bi-file-earmark-text me-1"></i>Buat Laporan
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -299,70 +213,6 @@
                           </button>
                           <button class="btn btn-sm btn-secondary">
                             <i class="bi bi-printer"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- Scheduled Reports -->
-            <div class="card mb-4">
-              <div
-                class="card-header d-flex justify-content-between align-items-center"
-              >
-                <h5 class="mb-0">Jadwal Laporan Rutin</h5>
-                <button
-                  class="btn btn-sm btn-posyandu"
-                  data-bs-toggle="modal"
-                  data-bs-target="#scheduleReportModal"
-                >
-                  <i class="bi bi-plus-circle me-1"></i>Tambah Jadwal
-                </button>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Jenis Laporan</th>
-                        <th>Frekuensi</th>
-                        <th>Terakhir Dibuat</th>
-                        <th>Jadwal Berikutnya</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Laporan Data Anak</td>
-                        <td>Bulanan</td>
-                        <td>01/05/2025</td>
-                        <td>01/06/2025</td>
-                        <td><span class="badge bg-success">Aktif</span></td>
-                        <td>
-                          <button class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Laporan Statistik</td>
-                        <td>Mingguan</td>
-                        <td>15/05/2025</td>
-                        <td>22/05/2025</td>
-                        <td><span class="badge bg-success">Aktif</span></td>
-                        <td>
-                          <button class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash"></i>
                           </button>
                         </td>
                       </tr>

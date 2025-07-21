@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Informasi Posyandu - Halaman Utama</title>
+    <title>Sistem Informasi Posyandu - Platform Kesehatan Terpadu</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -16,70 +16,247 @@
     />
     <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <!-- Hero Section -->
-    <section class="landing-hero">
-      <div class="container text-center">
-        <h1 class="display-4 fw-bold mb-4">
-          <i class="bi bi-heart-pulse-fill me-2"></i>Sistem Informasi Posyandu
-        </h1>
-        <p class="lead mb-5">
-          Platform digital untuk memantau pertumbuhan dan kesehatan anak serta
-          ibu hamil secara terstruktur dan terintegrasi.
-        </p>
-        <a
-          href="/auth/login.html"
-          class="btn btn-light btn-lg px-4 me-md-2 fw-bold"
-        >
-          <i class="bi bi-box-arrow-in-right me-2"></i>Masuk
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="assets/img/logo.png" alt="Logo" />
+          <span>SI Posyandu</span>
         </a>
+
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Fitur</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">Tentang</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#cta-section">Kontak</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#help">Bantuan</a>
+            </li> -->
+          </ul>
+
+          <div class="d-flex">
+            <a href="/auth/login.html" class="btn btn-login">
+              <i class="bi bi-box-arrow-in-right me-2"></i>
+              Masuk
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 text-center hero-content">
+            <h1 class="hero-title" data-aos="fade-up">
+              Sistem Informasi Pengolohan<br />
+              <span style="color: var(--accent-color)"
+                >Data Stunting Balita</span
+              >
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+              Platform digital yang memudahkan pengelolaan data anak untuk
+              memantau pertumbuhan dan mencegah stunting dengan teknologi modern
+              dan antarmuka yang user-friendly
+            </p>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+              <a href="/auth/login.html" class="btn-hero-primary">
+                <i class="bi bi-rocket-takeoff"></i>
+                Mulai Sekarang
+              </a>
+              <a href="#features" class="btn-hero-secondary">
+                <i class="bi bi-play-circle"></i>
+                Pelajari Lebih Lanjut
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="stat-item">
+              <span class="stat-number" data-target="1000">0</span>
+              <span class="stat-label">Anak Terdaftar</span>
+            </div>
+          </div>
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="stat-item">
+              <span class="stat-number" data-target="50">0</span>
+              <span class="stat-label">Posyandu Aktif</span>
+            </div>
+          </div>
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="stat-item">
+              <span class="stat-number" data-target="100">0</span>
+              <span class="stat-label">Kader Terlatih</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-5 bg-light">
+    <section id="features" class="features-section">
       <div class="container">
-        <h2 class="text-center mb-5 text-posyandu">Fitur Utama</h2>
+        <div class="row">
+          <div class="col-12">
+            <h2 class="section-title" data-aos="fade-up">Fitur Unggulan</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+              Solusi lengkap untuk mengelola data anak dan memantau pertumbuhan
+              guna mencegah stunting dengan efisien dan akurat
+            </p>
+          </div>
+        </div>
+
         <div class="row g-4">
-          <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-clipboard-data text-posyandu fs-1 mb-3"></i>
-                <h5 class="card-title">Pencatatan Data</h5>
-                <p class="card-text">
-                  Pencatatan data anak dan ibu hamil yang terstruktur dan
-                  sistematis.
-                </p>
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="card feature-card h-100">
+              <div class="feature-icon floating">
+                <i class="bi bi-clipboard-data"></i>
               </div>
+              <h5 class="feature-title">Pencatatan Data Anak</h5>
+              <p class="feature-description">
+                Sistem pencatatan data anak yang terstruktur, aman, dan mudah
+                diakses untuk memantau perkembangan setiap anak
+              </p>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-graph-up-arrow text-posyandu fs-1 mb-3"></i>
-                <h5 class="card-title">Pemantauan Kesehatan</h5>
-                <p class="card-text">
-                  Pantau pertumbuhan anak dan kesehatan ibu hamil secara
-                  berkala.
-                </p>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="card feature-card h-100">
+              <div class="feature-icon floating" style="animation-delay: 1s">
+                <i class="bi bi-graph-up-arrow"></i>
               </div>
+              <h5 class="feature-title">Monitoring Pertumbuhan</h5>
+              <p class="feature-description">
+                Pantau tinggi badan, berat badan, dan lingkar kepala anak dengan
+                grafik pertumbuhan yang mudah dipahami
+              </p>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-              <div class="card-body text-center p-4">
-                <i class="bi bi-file-earmark-text text-posyandu fs-1 mb-3"></i>
-                <h5 class="card-title">Laporan Terpadu</h5>
-                <p class="card-text">
-                  Laporan kesehatan yang komprehensif dan mudah diakses.
-                </p>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <div class="card feature-card h-100">
+              <div class="feature-icon floating" style="animation-delay: 2s">
+                <i class="bi bi-exclamation-triangle"></i>
               </div>
+              <h5 class="feature-title">Deteksi Dini Stunting</h5>
+              <p class="feature-description">
+                Sistem alert otomatis untuk mendeteksi risiko stunting
+                berdasarkan data pertumbuhan dan memberikan peringatan dini
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <div class="card feature-card h-100">
+              <div class="feature-icon floating">
+                <i class="bi bi-file-earmark-text"></i>
+              </div>
+              <h5 class="feature-title">Laporan Pertumbuhan</h5>
+              <p class="feature-description">
+                Generate laporan pertumbuhan anak yang detail untuk evaluasi dan
+                tindakan pencegahan stunting yang tepat
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            <div class="card feature-card h-100">
+              <div class="feature-icon floating" style="animation-delay: 1s">
+                <i class="bi bi-people"></i>
+              </div>
+              <h5 class="feature-title">Kolaborasi Kader</h5>
+              <p class="feature-description">
+                Memungkinkan kerjasama antar kader posyandu dan tenaga kesehatan
+                untuk mengelola data anak secara bersama-sama
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-4 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="700"
+          >
+            <div class="card feature-card h-100">
+              <div class="feature-icon floating" style="animation-delay: 2s">
+                <i class="bi bi-phone"></i>
+              </div>
+              <h5 class="feature-title">Akses Mobile</h5>
+              <p class="feature-description">
+                Dapat diakses melalui smartphone dan tablet untuk kemudahan
+                pencatatan data anak di posyandu dan kunjungan rumah
+              </p>
             </div>
           </div>
         </div>
@@ -87,84 +264,371 @@
     </section>
 
     <!-- About Section -->
-    <section class="py-5">
+    <section id="about" class="about-section">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-6 order-md-2">
+          <div class="col-lg-6" data-aos="fade-right">
             <img
               src="https://images.pexels.com/photos/6823562/pexels-photo-6823562.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="img-fluid rounded shadow"
+              class="img-fluid about-image"
               alt="Posyandu"
             />
           </div>
-          <div class="col-md-6 order-md-1">
-            <h2 class="text-posyandu mb-4">Tentang Posyandu</h2>
-            <p>
+          <div class="col-lg-6" data-aos="fade-left">
+            <h2 class="about-title">Tentang Sistem Posyandu</h2>
+            <p class="about-text">
               Pos Pelayanan Terpadu (Posyandu) adalah kegiatan kesehatan dasar
               yang diselenggarakan dari, oleh, dan untuk masyarakat yang dibantu
-              oleh petugas kesehatan.
+              oleh petugas kesehatan di wilayah kerja Puskesmas.
             </p>
-            <p>
-              Sistem Informasi Posyandu ini dirancang untuk memudahkan
-              pendataan, pemantauan, dan pelaporan kegiatan Posyandu dengan
-              lebih efisien dan akurat.
+            <p class="about-text">
+              Sistem Informasi Posyandu ini hadir sebagai solusi digitalisasi
+              yang memudahkan pengelolaan data anak untuk memantau pertumbuhan
+              dan mencegah stunting. Platform ini dirancang dengan teknologi
+              modern untuk meningkatkan efisiensi dan akurasi dalam pemantauan
+              tumbuh kembang anak.
             </p>
-            <a href="/auth/login.html" class="btn btn-posyandu mt-3">
-              <i class="bi bi-box-arrow-in-right me-2"></i>Mulai Sekarang
+            <p class="about-text">
+              Dengan fitur-fitur canggih namun mudah digunakan, sistem ini
+              membantu kader Posyandu dalam mencatat data pertumbuhan anak,
+              mendeteksi risiko stunting, dan melaporkan hasil pemantauan dengan
+              lebih sistematis dan akurat.
+            </p>
+            <a href="/auth/login.html" class="btn-hero-primary mt-3">
+              <i class="bi bi-arrow-right"></i>
+              Mulai Bergabung
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
+    <!-- CTA Section -->
+    <section id="cta-section" class="cta-section">
       <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h5>
-              <i class="bi bi-heart-pulse-fill me-2"></i>Sistem Informasi
-              Posyandu
-            </h5>
-            <p class="small">
-              Platform digital untuk memantau pertumbuhan dan kesehatan anak
-              serta ibu hamil.
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <h2 class="cta-title" data-aos="fade-up">
+              Siap Meningkatkan Pelayanan Posyandu Anda?
+            </h2>
+            <p class="cta-subtitle" data-aos="fade-up" data-aos-delay="200">
+              Bergabunglah dengan ribuan kader Posyandu yang telah merasakan
+              kemudahan sistem informasi digital kami
             </p>
+            <div data-aos="fade-up" data-aos-delay="400">
+              <a href="/auth/login.html" class="btn-hero-primary me-3">
+                <i class="bi bi-rocket-takeoff"></i>
+                Daftar Sekarang
+              </a>
+              <a href="#contact" class="btn-hero-secondary">
+                <i class="bi bi-telephone"></i>
+                Hubungi Kami
+              </a>
+            </div>
           </div>
-          <div class="col-md-3">
-            <h5>Tautan</h5>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white-50">Tentang</a></li>
-              <li><a href="#" class="text-white-50">Bantuan</a></li>
-              <li><a href="#" class="text-white-50">Kontak</a></li>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+      <div class="container">
+        <div class="row text-center text-lg-start">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="footer-brand">
+              <a
+                class="navbar-brand justify-content-center justify-content-lg-start"
+                href="#"
+              >
+                <img src="assets/img/logo.png" alt="Logo" />
+                <span>SI Posyandu</span>
+              </a>
+            </div>
+            <p class="footer-description">
+              Platform digital untuk mengelola data anak, memantau pertumbuhan,
+              dan mencegah stunting dengan teknologi modern yang mudah
+              digunakan.
+            </p>
+            <div
+              class="social-links justify-content-center justify-content-lg-start"
+            >
+              <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="me-3"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="me-3"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-3 mb-4">
+            <h5 class="footer-title">Menu</h5>
+            <ul class="footer-links">
+              <li><a href="#home">Beranda</a></li>
+              <li><a href="#features">Fitur</a></li>
+              <li><a href="#about">Tentang</a></li>
+              <li><a href="/auth/login.html">Masuk</a></li>
             </ul>
           </div>
-          <div class="col-md-3">
-            <h5>Kontak</h5>
-            <ul class="list-unstyled text-white-50">
-              <li><i class="bi bi-envelope me-2"></i>info@siposyandu.id</li>
-              <li><i class="bi bi-telephone me-2"></i>(021) 1234-5678</li>
+
+          <div class="col-lg-4 col-md-3 mb-4">
+            <h5 class="footer-title">Kontak</h5>
+            <ul class="footer-links">
+              <li>
+                <i class="bi bi-envelope me-2"></i>
+                <a href="mailto:info@siposyandu.id">info@siposyandu.id</a>
+              </li>
+              <li>
+                <i class="bi bi-telephone me-2"></i>
+                <a href="tel:+62211234567">+62 21 1234-567</a>
+              </li>
+              <li>
+                <i class="bi bi-geo-alt me-2"></i>
+                Jakarta, Indonesia
+              </li>
             </ul>
           </div>
         </div>
-        <hr />
-        <div class="text-center text-white-50">
-          <small
-            >&copy; 2025 Sistem Informasi Posyandu. Hak Cipta Dilindungi.</small
-          >
-        </div>
-        <div class="text-center text-white-50">
-          <small
-            >DEVELOPER ->
-            <a href="https://wanndev.vercel.app/" target="_blank">wanndev</a>
-          </small>
+
+        <div class="footer-bottom">
+          <div class="row">
+            <div class="col-12 text-center">
+              <p class="mb-0">
+                &copy; 2025 Sistem Informasi Posyandu. Hak Cipta Dilindungi.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="/assets/js/scripts.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100,
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Stats counter animation
+      function animateCounter(element, target, duration = 2000) {
+        let current = 0;
+        const increment = target / (duration / 16);
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          element.textContent = Math.floor(current);
+        }, 16);
+      }
+
+      // Trigger counter animation when stats section is visible
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const counters = entry.target.querySelectorAll(".stat-number");
+            counters.forEach((counter) => {
+              const target = parseInt(counter.getAttribute("data-target"));
+              animateCounter(counter, target);
+            });
+            statsObserver.unobserve(entry.target);
+          }
+        });
+      });
+
+      const statsSection = document.querySelector(".stats-section");
+      if (statsSection) {
+        statsObserver.observe(statsSection);
+      }
+
+      // Active navigation link
+      const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+      const sections = document.querySelectorAll("section[id]");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollY >= sectionTop - 200) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+          }
+        });
+      });
+
+      // Mobile navbar collapse on link click
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+      const navbarToggler = document.querySelector(".navbar-toggler");
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (navbarCollapse.classList.contains("show")) {
+            navbarToggler.click();
+          }
+        });
+      });
+
+      // Parallax effect for hero section
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const heroSection = document.querySelector(".hero-section");
+        if (heroSection) {
+          heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+
+      // Add loading animation
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+
+      // Floating animation trigger
+      const floatingElements = document.querySelectorAll(".floating");
+      floatingElements.forEach((element, index) => {
+        element.style.animationDelay = `${index * 0.5}s`;
+      });
+
+      // Form validation and enhancement (if needed)
+      const forms = document.querySelectorAll("form");
+      forms.forEach((form) => {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add your form handling logic here
+          console.log("Form submitted");
+        });
+      });
+
+      // Add ripple effect to buttons
+      function createRipple(event) {
+        const button = event.currentTarget;
+        const circle = document.createElement("span");
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+        circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+        circle.classList.add("ripple");
+
+        const ripple = button.getElementsByClassName("ripple")[0];
+        if (ripple) {
+          ripple.remove();
+        }
+
+        button.appendChild(circle);
+      }
+
+      // Apply ripple effect to buttons
+      const buttons = document.querySelectorAll(
+        ".btn-hero-primary, .btn-hero-secondary, .btn-login"
+      );
+      buttons.forEach((button) => {
+        button.addEventListener("click", createRipple);
+      });
+
+      // Add CSS for ripple effect
+      const style = document.createElement("style");
+      style.textContent = `
+        .btn-hero-primary, .btn-hero-secondary, .btn-login {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ripple {
+          position: absolute;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.3);
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          pointer-events: none;
+        }
+
+        @keyframes ripple {
+          to {
+            transform: scale(4);
+            opacity: 0;
+          }
+        }
+
+        .loaded {
+          opacity: 1;
+        }
+
+        body {
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Lazy loading for images
+      const images = document.querySelectorAll("img[data-src]");
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove("lazy");
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      images.forEach((img) => imageObserver.observe(img));
+
+      // Performance optimization: Throttle scroll events
+      let ticking = false;
+
+      function updateOnScroll() {
+        // Your scroll-based animations here
+        ticking = false;
+      }
+
+      function requestTick() {
+        if (!ticking) {
+          requestAnimationFrame(updateOnScroll);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener("scroll", requestTick);
+    </script>
   </body>
 </html>
